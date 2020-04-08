@@ -1,3 +1,3 @@
-# Small Elm Projects
+# 2048 programmed in Elm + some small examples
 
-usae: simpl open any html file with a browser and it will compile the elm code and execute it automagically.
+usage: simply open any html file et voila!

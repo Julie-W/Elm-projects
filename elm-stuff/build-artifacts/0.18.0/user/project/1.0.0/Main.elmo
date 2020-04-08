@@ -1,0 +1,897 @@
+var _user$project$Main$displayedText = function (maybe) {
+	var _p0 = maybe;
+	if (_p0.ctor === 'Just') {
+		return _elm_lang$core$Basics$toString(_p0._0);
+	} else {
+		return '';
+	}
+};
+var _user$project$Main$specificStyle = function (n) {
+	var fontSize = (_elm_lang$core$Native_Utils.cmp(n, 500) > 0) ? '40px' : 'inherit';
+	var color = (_elm_lang$core$Native_Utils.cmp(n, 4) < 1) ? '#776e65' : '#f9f6f2';
+	var background = _elm_lang$core$Native_Utils.eq(n, 0) ? 'rgba(238, 228, 218, 0.35)' : (_elm_lang$core$Native_Utils.eq(n, 2) ? '#eee4da' : (_elm_lang$core$Native_Utils.eq(n, 4) ? '#ede0c8' : (_elm_lang$core$Native_Utils.eq(n, 8) ? '#f2b179' : (_elm_lang$core$Native_Utils.eq(n, 16) ? '#f59563' : (_elm_lang$core$Native_Utils.eq(n, 32) ? '#f67c5f' : (_elm_lang$core$Native_Utils.eq(n, 64) ? '#f65e3b' : (_elm_lang$core$Native_Utils.eq(n, 128) ? '#edcf72' : (_elm_lang$core$Native_Utils.eq(n, 256) ? '#edcc61' : (_elm_lang$core$Native_Utils.eq(n, 512) ? '#edc850' : (_elm_lang$core$Native_Utils.eq(n, 1024) ? '#edc53f' : '#edc22e'))))))))));
+	return {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'background', _1: background},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'color', _1: color},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'font-size', _1: fontSize},
+				_1: {ctor: '[]'}
+			}
+		}
+	};
+};
+var _user$project$Main$viewEntry = function (entry) {
+	return A2(
+		_elm_lang$html$Html$th,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				A2(
+					_elm_lang$core$List$append,
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'height', _1: '107px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'width', _1: '90px'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'margin-right', _1: '15px'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'border', _1: '15px solid #bbada0'},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					},
+					_user$project$Main$specificStyle(entry))),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				(_elm_lang$core$Native_Utils.cmp(entry, 0) > 0) ? _elm_lang$core$Basics$toString(entry) : ''),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$viewRow = function (row) {
+	return A2(
+		_elm_lang$html$Html$tr,
+		{ctor: '[]'},
+		A2(_elm_lang$core$List$map, _user$project$Main$viewEntry, row));
+};
+var _user$project$Main$viewTable = function (model) {
+	return A2(
+		_elm_lang$html$Html$table,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'font-size', _1: '45px'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'border', _1: '15px solid #bbada0'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'border-collapse', _1: 'collapse'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'background', _1: '#bbada0'},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		},
+		A2(_elm_lang$core$List$map, _user$project$Main$viewRow, model.board));
+};
+var _user$project$Main$inputToSize = function (str) {
+	var i = _elm_lang$core$String$toInt(str);
+	var _p1 = i;
+	if (_p1.ctor === 'Ok') {
+		var _p2 = _p1._0;
+		return ((_elm_lang$core$Native_Utils.cmp(_p2, 0) > 0) && (_elm_lang$core$Native_Utils.cmp(_p2, 6) < 0)) ? _p2 : 4;
+	} else {
+		return 4;
+	}
+};
+var _user$project$Main$recMerge = function (lst) {
+	var _p3 = lst;
+	if (_p3.ctor === '[]') {
+		return {ctor: '[]'};
+	} else {
+		var _p9 = _p3._1;
+		var _p8 = _p3._0;
+		var _p4 = _p9;
+		if (_p4.ctor === '[]') {
+			return {
+				ctor: '::',
+				_0: _p8,
+				_1: {ctor: '[]'}
+			};
+		} else {
+			var _p7 = _p4._1;
+			var _p6 = _p4._0;
+			if (_elm_lang$core$Native_Utils.eq(_p6, 0)) {
+				return {
+					ctor: '::',
+					_0: _p8,
+					_1: _user$project$Main$recMerge(_p9)
+				};
+			} else {
+				var _p5 = _p8;
+				if (_p5 === 0) {
+					return {
+						ctor: '::',
+						_0: _p6,
+						_1: _user$project$Main$recMerge(
+							{ctor: '::', _0: _p8, _1: _p7})
+					};
+				} else {
+					return _elm_lang$core$Native_Utils.eq(_p6, 0) ? {
+						ctor: '::',
+						_0: _p8,
+						_1: _user$project$Main$recMerge(_p9)
+					} : (_elm_lang$core$Native_Utils.eq(_p8 + _p6, 3) ? {
+						ctor: '::',
+						_0: 3,
+						_1: _user$project$Main$recMerge(_p7)
+					} : ((_elm_lang$core$Native_Utils.eq(_p8, 1) || _elm_lang$core$Native_Utils.eq(_p8, 2)) ? {
+						ctor: '::',
+						_0: _p8,
+						_1: _user$project$Main$recMerge(_p9)
+					} : (_elm_lang$core$Native_Utils.eq(_p8, _p6) ? {
+						ctor: '::',
+						_0: 2 * _p8,
+						_1: _user$project$Main$recMerge(_p7)
+					} : {
+						ctor: '::',
+						_0: _p8,
+						_1: _user$project$Main$recMerge(_p9)
+					})));
+				}
+			}
+		}
+	}
+};
+var _user$project$Main$removeZeroes = function (board) {
+	return A2(
+		_elm_lang$core$List$filter,
+		function (x) {
+			return !_elm_lang$core$Native_Utils.eq(
+				x,
+				A2(
+					_elm_lang$core$Debug$log,
+					_elm_lang$core$Basics$toString(board),
+					0));
+		},
+		board);
+};
+var _user$project$Main$mergeLeft = function (board) {
+	var lst = _user$project$Main$recMerge(board);
+	var size = _elm_lang$core$List$length(board);
+	return A2(
+		_elm_lang$core$List$append,
+		lst,
+		A2(
+			_elm_lang$core$List$repeat,
+			size - _elm_lang$core$List$length(lst),
+			0));
+};
+var _user$project$Main$mergeRight = function (board) {
+	var lst = _user$project$Main$mergeLeft(
+		_elm_lang$core$List$reverse(board));
+	return _elm_lang$core$List$reverse(lst);
+};
+var _user$project$Main$transpose = function (ll) {
+	transpose:
+	while (true) {
+		var _p10 = ll;
+		if (_p10.ctor === '[]') {
+			return {ctor: '[]'};
+		} else {
+			if (_p10._0.ctor === '[]') {
+				var _v6 = _p10._1;
+				ll = _v6;
+				continue transpose;
+			} else {
+				var _p11 = _p10._1;
+				var tails = A2(_elm_lang$core$List$filterMap, _elm_lang$core$List$tail, _p11);
+				var heads = A2(_elm_lang$core$List$filterMap, _elm_lang$core$List$head, _p11);
+				return {
+					ctor: '::',
+					_0: {ctor: '::', _0: _p10._0._0, _1: heads},
+					_1: _user$project$Main$transpose(
+						{ctor: '::', _0: _p10._0._1, _1: tails})
+				};
+			}
+		}
+	}
+};
+var _user$project$Main$changeHead = function (list) {
+	var _p12 = list;
+	if (_p12.ctor === '[]') {
+		return {ctor: '[]'};
+	} else {
+		var _p13 = _p12._0;
+		if (_p13.ctor === '[]') {
+			return {
+				ctor: '::',
+				_0: {ctor: '[]'},
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return {
+				ctor: '::',
+				_0: {ctor: '::', _0: 2, _1: _p13._1},
+				_1: _p12._1
+			};
+		}
+	}
+};
+var _user$project$Main$recAddTile = F3(
+	function (n, newTile, lst) {
+		if (_elm_lang$core$Native_Utils.cmp(n, 0) > 0) {
+			var _p14 = lst;
+			if (_p14.ctor === '[]') {
+				return {
+					ctor: '_Tuple2',
+					_0: {ctor: '[]'},
+					_1: n
+				};
+			} else {
+				var _p16 = _p14._1;
+				var _p15 = _p14._0;
+				if (_elm_lang$core$Native_Utils.eq(_p15, 0)) {
+					if (_elm_lang$core$Native_Utils.eq(n, 1)) {
+						return {
+							ctor: '_Tuple2',
+							_0: {ctor: '::', _0: newTile, _1: _p16},
+							_1: n - 1
+						};
+					} else {
+						var rec = A3(_user$project$Main$recAddTile, n - 1, newTile, _p16);
+						return {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: _p15,
+								_1: _elm_lang$core$Tuple$first(rec)
+							},
+							_1: _elm_lang$core$Tuple$second(rec)
+						};
+					}
+				} else {
+					var rec = A3(_user$project$Main$recAddTile, n, newTile, _p16);
+					return {
+						ctor: '_Tuple2',
+						_0: {
+							ctor: '::',
+							_0: _p15,
+							_1: _elm_lang$core$Tuple$first(rec)
+						},
+						_1: _elm_lang$core$Tuple$second(rec)
+					};
+				}
+			}
+		} else {
+			return {ctor: '_Tuple2', _0: lst, _1: n};
+		}
+	});
+var _user$project$Main$recAddTileRow = F3(
+	function (lst, n, newTile) {
+		var _p17 = lst;
+		if (_p17.ctor === '[]') {
+			return {ctor: '[]'};
+		} else {
+			var _p18 = A3(_user$project$Main$recAddTile, n, newTile, _p17._0);
+			var a = _p18._0;
+			var b = _p18._1;
+			return {
+				ctor: '::',
+				_0: a,
+				_1: A3(_user$project$Main$recAddTileRow, _p17._1, b, newTile)
+			};
+		}
+	});
+var _user$project$Main$getNewTile = function (rand) {
+	return (_elm_lang$core$Native_Utils.cmp(rand, 0.333) < 0) ? 1 : ((_elm_lang$core$Native_Utils.cmp(rand, 0.666) < 0) ? 2 : 3);
+};
+var _user$project$Main$numZeroes = function (_p19) {
+	return _elm_lang$core$List$sum(
+		A2(
+			_elm_lang$core$List$map,
+			A2(
+				_elm_lang$core$List$foldr,
+				F2(
+					function (x, y) {
+						return _elm_lang$core$Native_Utils.eq(x, 0) ? (y + 1) : y;
+					}),
+				0),
+			_p19));
+};
+var _user$project$Main$doDown = function (board) {
+	return _user$project$Main$transpose(
+		A2(
+			_elm_lang$core$List$map,
+			_user$project$Main$mergeRight,
+			_user$project$Main$transpose(board)));
+};
+var _user$project$Main$doUp = function (board) {
+	return _user$project$Main$transpose(
+		A2(
+			_elm_lang$core$List$map,
+			_user$project$Main$mergeLeft,
+			_user$project$Main$transpose(board)));
+};
+var _user$project$Main$doLeft = _elm_lang$core$List$map(_user$project$Main$mergeLeft);
+var _user$project$Main$doRight = _elm_lang$core$List$map(_user$project$Main$mergeRight);
+var _user$project$Main$checkGameOver = function (board) {
+	return (_elm_lang$core$Native_Utils.cmp(
+		_user$project$Main$numZeroes(board),
+		0) > 0) ? false : ((_elm_lang$core$Native_Utils.eq(
+		_user$project$Main$doRight(board),
+		board) && (_elm_lang$core$Native_Utils.eq(
+		_user$project$Main$doLeft(board),
+		board) && (_elm_lang$core$Native_Utils.eq(
+		_user$project$Main$doUp(board),
+		board) && _elm_lang$core$Native_Utils.eq(
+		_user$project$Main$doDown(board),
+		board)))) ? true : false);
+};
+var _user$project$Main$Model = F4(
+	function (a, b, c, d) {
+		return {gameOver: a, board: b, size: c, nextTile: d};
+	});
+var _user$project$Main$SetSize = function (a) {
+	return {ctor: 'SetSize', _0: a};
+};
+var _user$project$Main$Restart = {ctor: 'Restart'};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font-family', _1: '\n            \"Clear Sans\", \"Helvetica Neue\", Arial, sans-serif\n            '},
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'float', _1: 'left'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'top', _1: '0'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'bottom', _1: '0'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'left', _1: '0'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'right', _1: '0'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'margin', _1: 'inherit'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'z-index', _1: '-1'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'font-family', _1: '\n                \"Clear Sans\", \"Helvetica Neue\", Arial, sans-serif\n                '},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _user$project$Main$viewTable(model),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'background', _1: 'rgba(238, 228, 218, 0.73)'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'float', _1: 'left'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'top', _1: '0'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'bottom', _1: '0'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'left', _1: '0'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'right', _1: '0'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'margin', _1: 'inherit'},
+															_1: {
+																ctor: '::',
+																_0: {
+																	ctor: '_Tuple2',
+																	_0: 'display',
+																	_1: model.gameOver ? 'block' : 'none'
+																},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$p,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'font-size', _1: '60px'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '30%'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '3%'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'color', _1: '#776e65'},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}
+										}
+									}),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Game over!'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$button,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Restart),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$style(
+											{
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'background', _1: '#8f7a66'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '3px'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'color', _1: '#f9f6f2'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'height', _1: '40px'},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'padding', _1: '0 20px'},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+																	_1: {
+																		ctor: '::',
+																		_0: {ctor: '_Tuple2', _0: 'font-size', _1: '18px'},
+																		_1: {
+																			ctor: '::',
+																			_0: {ctor: '_Tuple2', _0: 'outline', _1: '0'},
+																			_1: {
+																				ctor: '::',
+																				_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '3px'},
+																				_1: {
+																					ctor: '::',
+																					_0: {ctor: '_Tuple2', _0: 'margin', _1: '0 auto'},
+																					_1: {
+																						ctor: '::',
+																						_0: {ctor: '_Tuple2', _0: 'display', _1: 'block'},
+																						_1: {ctor: '[]'}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}),
+										_1: {ctor: '[]'}
+									}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Restart'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'float', _1: 'right'},
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$style(
+										{
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'background', _1: '#bbada0'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'padding', _1: '15px 25px'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'font-size', _1: '22px'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'height', _1: '15px'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'width', _1: '87px'},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '3px'},
+																	_1: {
+																		ctor: '::',
+																		_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
+																		_1: {
+																			ctor: '::',
+																			_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '20px'},
+																			_1: {ctor: '[]'}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('noscore'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Restart),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$style(
+												{
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'background', _1: '#8f7a66'},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '3px'},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'color', _1: '#f9f6f2'},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: 'height', _1: '40px'},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: 'padding', _1: '0 20px'},
+																	_1: {
+																		ctor: '::',
+																		_0: {ctor: '_Tuple2', _0: 'font-weight', _1: 'bold'},
+																		_1: {
+																			ctor: '::',
+																			_0: {ctor: '_Tuple2', _0: 'font-size', _1: '18px'},
+																			_1: {
+																				ctor: '::',
+																				_0: {ctor: '_Tuple2', _0: 'outline', _1: '0'},
+																				_1: {
+																					ctor: '::',
+																					_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '3px'},
+																					_1: {
+																						ctor: '::',
+																						_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '20px'},
+																						_1: {
+																							ctor: '::',
+																							_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '5px'},
+																							_1: {ctor: '[]'}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('New Game'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$input,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$SetSize),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$placeholder('Set Size'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$style(
+														{
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '5px'},
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											}
+										},
+										{ctor: '[]'}),
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Main$AddTile = F3(
+	function (a, b, c) {
+		return {ctor: 'AddTile', _0: a, _1: b, _2: c};
+	});
+var _user$project$Main$initializeBoard = function (size) {
+	var model = A2(
+		_elm_lang$core$List$repeat,
+		size,
+		A2(_elm_lang$core$List$repeat, size, 0));
+	return {
+		ctor: '_Tuple2',
+		_0: A4(_user$project$Main$Model, false, model, size, 0),
+		_1: _elm_lang$core$Platform_Cmd$batch(
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$core$Random$generate,
+					function (_p20) {
+						var _p21 = _p20;
+						return A3(_user$project$Main$AddTile, 1, _p21._0, _p21._1);
+					},
+					A2(
+						_elm_lang$core$Random$pair,
+						A2(_elm_lang$core$Random$float, 0, 1),
+						A2(_elm_lang$core$Random$float, 0, 1))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$core$Random$generate,
+						function (_p22) {
+							var _p23 = _p22;
+							return A3(_user$project$Main$AddTile, 2, _p23._0, _p23._1);
+						},
+						A2(
+							_elm_lang$core$Random$pair,
+							A2(_elm_lang$core$Random$float, 0, 1),
+							A2(_elm_lang$core$Random$float, 0, 1))),
+					_1: {ctor: '[]'}
+				}
+			})
+	};
+};
+var _user$project$Main$init = _user$project$Main$initializeBoard(4);
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p24 = msg;
+		switch (_p24.ctor) {
+			case 'Move':
+				var newModel = function () {
+					var _p25 = _p24._0;
+					switch (_p25.ctor) {
+						case 'Right':
+							return _user$project$Main$doRight(model.board);
+						case 'Left':
+							return _user$project$Main$doLeft(model.board);
+						case 'Up':
+							return _user$project$Main$doUp(model.board);
+						case 'Down':
+							return _user$project$Main$doDown(model.board);
+						default:
+							return model.board;
+					}
+				}();
+				return model.gameOver ? {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none} : (_elm_lang$core$Native_Utils.eq(newModel, model.board) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{board: newModel}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{board: newModel}),
+					_1: A2(
+						_elm_lang$core$Random$generate,
+						function (_p26) {
+							var _p27 = _p26;
+							return A3(_user$project$Main$AddTile, model.nextTile, _p27._0, _p27._1);
+						},
+						A2(
+							_elm_lang$core$Random$pair,
+							A2(_elm_lang$core$Random$float, 0, 1),
+							A2(_elm_lang$core$Random$float, 0, 1)))
+				});
+			case 'AddTile':
+				var _p28 = _p24._1;
+				if (_user$project$Main$checkGameOver(model.board)) {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{gameOver: true}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					var pos = 1 + _elm_lang$core$Basics$floor(
+						A2(
+							_elm_lang$core$Debug$log,
+							_elm_lang$core$Basics$toString(_p28),
+							_p28) * _user$project$Main$numZeroes(model.board));
+					var board = A3(_user$project$Main$recAddTileRow, model.board, pos, _p24._0);
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								gameOver: _user$project$Main$checkGameOver(board),
+								board: board,
+								nextTile: _user$project$Main$getNewTile(_p24._2)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'Restart':
+				return _user$project$Main$initializeBoard(model.size);
+			default:
+				return _user$project$Main$initializeBoard(
+					_user$project$Main$inputToSize(_p24._0));
+		}
+	});
+var _user$project$Main$Move = function (a) {
+	return {ctor: 'Move', _0: a};
+};
+var _user$project$Main$NoDir = {ctor: 'NoDir'};
+var _user$project$Main$Right = {ctor: 'Right'};
+var _user$project$Main$Left = {ctor: 'Left'};
+var _user$project$Main$Down = {ctor: 'Down'};
+var _user$project$Main$Up = {ctor: 'Up'};
+var _user$project$Main$detectDir = function (keyCode) {
+	var _p29 = keyCode;
+	switch (_p29) {
+		case 38:
+			return _user$project$Main$Up;
+		case 40:
+			return _user$project$Main$Down;
+		case 37:
+			return _user$project$Main$Left;
+		case 39:
+			return _user$project$Main$Right;
+		default:
+			return _user$project$Main$NoDir;
+	}
+};
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _elm_lang$keyboard$Keyboard$downs(
+				function (_p30) {
+					return _user$project$Main$Move(
+						_user$project$Main$detectDir(_p30));
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})();
